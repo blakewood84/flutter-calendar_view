@@ -102,6 +102,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   itemBuilder: (context, index) {
                     final time = startTime.add(Duration(hours: index));
 
+                    devtools.log('Row Start Time: ${time.hour}');
                     // Expand the schedule item to the end time
 
                     // Find a schedule Item that starts at this time
@@ -110,9 +111,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         .scheduleList
                         .singleWhereOrNull((schedule) => schedule.startTime.hour == time.hour);
 
+                    if (item != null) {
+                      devtools.log('Schedule Item Start Time: ${item.startTime.toIso8601String()}');
+                      devtools.log('Schedule Item End Time: ${item.endTime.toIso8601String()}');
+                    }
+
                     // Expand to it's end time. Check to see if it expands past it's end time
                     final scheduleItemHeight = item == null ? 0 : item.endTime.hour - item.startTime.hour;
-                    devtools.log('ITEM HEIGHT: $scheduleItemHeight');
 
                     // If an item ends here, reduce by 15
 
