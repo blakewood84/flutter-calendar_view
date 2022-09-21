@@ -2,6 +2,7 @@ import 'package:calendar_view/provider/schedule.dart';
 import 'package:flutter/material.dart';
 
 import 'package:calendar_view/screens/calendar.dart';
+import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -23,7 +24,150 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const CalendarScreen(),
+        home: const NewCalendarScreen(),
+      ),
+    );
+  }
+}
+
+class NewCalendarScreen extends StatefulWidget {
+  const NewCalendarScreen({Key? key}) : super(key: key);
+
+  @override
+  State<NewCalendarScreen> createState() => _NewCalendarScreenState();
+}
+
+class _NewCalendarScreenState extends State<NewCalendarScreen> {
+  late LinkedScrollControllerGroup _controllers;
+  late final ScrollController _scroll1; // Y
+  late final ScrollController _scroll2; // Y
+
+  @override
+  void initState() {
+    super.initState();
+    _controllers = LinkedScrollControllerGroup();
+    _scroll1 = _controllers.addAndGet();
+    _scroll2 = _controllers.addAndGet();
+    context.read<ScheduleProvider>().init();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Column(
+            children: [
+              // Row(
+              //   children: [
+              //     // Times down X Axis
+              //     Expanded(
+              //       child: SizedBox(
+              //         height: 20,
+              //         child: ListView(
+              //           scrollDirection: Axis.horizontal,
+              //           controller: _scroll1,
+              //           children: [
+              //             Container(
+              //               width: 75,
+              //               height: 20,
+              //               color: Colors.red,
+              //             ),
+              //             const SizedBox(width: 20),
+              //             Container(
+              //               width: 75,
+              //               height: 20,
+              //               color: Colors.red,
+              //             ),
+              //             const SizedBox(width: 20),
+              //             Container(
+              //               width: 75,
+              //               height: 20,
+              //               color: Colors.red,
+              //             ),
+              //             const SizedBox(width: 20),
+              //             Container(
+              //               width: 75,
+              //               height: 20,
+              //               color: Colors.red,
+              //             ),
+              //             const SizedBox(width: 20),
+              //             Container(
+              //               width: 75,
+              //               height: 20,
+              //               color: Colors.red,
+              //             ),
+              //             const SizedBox(width: 20),
+              //             Container(
+              //               width: 75,
+              //               height: 20,
+              //               color: Colors.red,
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //     // Schedule Items
+              //   ],
+              // ),
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: SizedBox(
+                    width: 550, // If I give a set width here it will still scroll horizontally and vertically
+                    height: constraints.maxHeight,
+                    child: ListView(
+                      children: [
+                        Container(
+                          height: 100,
+                          width: 30,
+                          color: Colors.blue,
+                        ),
+                        const SizedBox(height: 20),
+                        Container(
+                          height: 100,
+                          width: 30,
+                          color: Colors.blue,
+                        ),
+                        const SizedBox(height: 20),
+                        Container(
+                          height: 100,
+                          width: 30,
+                          color: Colors.blue,
+                        ),
+                        const SizedBox(height: 20),
+                        Container(
+                          height: 100,
+                          width: 30,
+                          color: Colors.blue,
+                        ),
+                        const SizedBox(height: 20),
+                        Container(
+                          height: 100,
+                          width: 30,
+                          color: Colors.blue,
+                        ),
+                        const SizedBox(height: 20),
+                        Container(
+                          height: 100,
+                          width: 30,
+                          color: Colors.blue,
+                        ),
+                        const SizedBox(height: 20),
+                        Container(
+                          height: 100,
+                          width: 30,
+                          color: Colors.blue,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
+          );
+        },
       ),
     );
   }

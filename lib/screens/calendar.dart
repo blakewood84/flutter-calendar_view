@@ -1,6 +1,7 @@
 import 'package:calendar_view/provider/schedule.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +16,9 @@ class CalendarScreen extends StatefulWidget {
 
 class _CalendarScreenState extends State<CalendarScreen> {
   late LinkedScrollControllerGroup _controllers;
-  late final ScrollController _scroll1;
-  late final ScrollController _scroll2;
+  late final ScrollController _scroll1; // Y
+  late final ScrollController _scroll2; // Y
+  late final ScrollController _scroll3; // X
 
   @override
   void initState() {
@@ -24,6 +26,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     _controllers = LinkedScrollControllerGroup();
     _scroll1 = _controllers.addAndGet();
     _scroll2 = _controllers.addAndGet();
+    _scroll3 = _controllers.addAndGet();
     context.read<ScheduleProvider>().init();
   }
 
@@ -59,6 +62,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
               Expanded(
                 child: ListView.builder(
                   controller: _scroll1,
+                  scrollDirection: Axis.vertical,
                   itemCount: 12,
                   itemBuilder: (context, index) {
                     final time = startTime.add(Duration(hours: index));
@@ -98,6 +102,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
               Expanded(
                 child: ListView.builder(
                   controller: _scroll2,
+                  scrollDirection: Axis.vertical,
                   itemCount: 12,
                   itemBuilder: (context, index) {
                     final time = startTime.add(Duration(hours: index));
@@ -127,6 +132,13 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         // Space for Time
                         const SizedBox(width: 75),
 
+                        // Space for Schedule Item
+                        Container(
+                          height: scheduleItemHeight > 0 ? 75.0 * scheduleItemHeight : 75.0,
+                          width: size.width * .6,
+                          color: item != null ? Colors.orange : Colors.transparent,
+                        ),
+                        const SizedBox(width: 10),
                         // Space for Schedule Item
                         Container(
                           height: scheduleItemHeight > 0 ? 75.0 * scheduleItemHeight : 75.0,
