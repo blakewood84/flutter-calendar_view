@@ -114,6 +114,25 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   itemCount: 12,
                   itemBuilder: (context, index) {
                     final time = startTime.add(Duration(hours: index));
+                    devtools.log('----------------------------');
+                    devtools.log('\nRow Start Time: ${time.hour}');
+                    // Expand the schedule item to the end time
+
+                    // Find a schedule Item that starts at this time
+                    final item = context
+                        .read<ScheduleProvider>()
+                        .scheduleList
+                        .singleWhereOrNull((schedule) => schedule.startTime.hour == time.hour);
+
+                    if (item != null) {
+                      devtools.log('Schedule Item Start Time: ${item.startTime.toIso8601String()}');
+                      devtools.log('Schedule Item End Time: ${item.endTime.toIso8601String()}');
+                      devtools.log('\n----------------------------');
+                    }
+
+                    // Expand to it's end time. Check to see if it expands past it's end time
+                    final scheduleItemHeight = item == null ? 0 : item.endTime.hour - item.startTime.hour;
+
                     return Container(
                       decoration: const BoxDecoration(
                         border: Border(
