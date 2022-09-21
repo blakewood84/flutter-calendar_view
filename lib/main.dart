@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const NewCalendarScreen(),
+        home: const CalendarScreen(),
       ),
     );
   }
@@ -59,58 +59,6 @@ class _NewCalendarScreenState extends State<NewCalendarScreen> {
         builder: (context, constraints) {
           return Column(
             children: [
-              // Row(
-              //   children: [
-              //     // Times down X Axis
-              //     Expanded(
-              //       child: SizedBox(
-              //         height: 20,
-              //         child: ListView(
-              //           scrollDirection: Axis.horizontal,
-              //           controller: _scroll1,
-              //           children: [
-              //             Container(
-              //               width: 75,
-              //               height: 20,
-              //               color: Colors.red,
-              //             ),
-              //             const SizedBox(width: 20),
-              //             Container(
-              //               width: 75,
-              //               height: 20,
-              //               color: Colors.red,
-              //             ),
-              //             const SizedBox(width: 20),
-              //             Container(
-              //               width: 75,
-              //               height: 20,
-              //               color: Colors.red,
-              //             ),
-              //             const SizedBox(width: 20),
-              //             Container(
-              //               width: 75,
-              //               height: 20,
-              //               color: Colors.red,
-              //             ),
-              //             const SizedBox(width: 20),
-              //             Container(
-              //               width: 75,
-              //               height: 20,
-              //               color: Colors.red,
-              //             ),
-              //             const SizedBox(width: 20),
-              //             Container(
-              //               width: 75,
-              //               height: 20,
-              //               color: Colors.red,
-              //             ),
-              //           ],
-              //         ),
-              //       ),
-              //     ),
-              //     // Schedule Items
-              //   ],
-              // ),
               Expanded(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
